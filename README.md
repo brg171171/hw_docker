@@ -32,7 +32,7 @@ https://hub.docker.com/repository/docker/borisgorelik171171/custom-nginx/general
 
 <img width="2927" height="931" alt="Снимок12" src="https://github.com/user-attachments/assets/16391bd6-9eae-493a-a923-6fdebc8d49fa" />
 
-
+При наличии обоих файлов Compose выбрал compose.yaml, поскольку это приоритетное имя конфигурации. Для подключения docker-compose.yaml использован include. После удаления compose.yaml сервис Portainer исчез из актуальной конфигурации, но его контейнер сохранился, поэтому Compose сообщил об orphan-контейнере. Флаг --remove-orphans удалил этот контейнер. Проект task5 завершён одной командой docker compose down --remove-orphans.
 
 
 
