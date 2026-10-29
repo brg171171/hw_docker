@@ -8,11 +8,15 @@ https://hub.docker.com/repository/docker/borisgorelik171171/custom-nginx/general
 <img width="1908" height="1656" alt="Снимок1" src="https://github.com/user-attachments/assets/50845409-ba5f-48b4-ac8d-4ced22df4c99" />
 
 ## Задание 3
+Для подключения к стандартным потокам контейнера я использовал команду docker attach custom-nginx-t2. Она подключает терминал к уже работающему основному процессу контейнера, а не запускает новую оболочку. После нажатия Ctrl+C клиент Docker получил сигнал SIGINT и передал его основному процессу контейнера, поскольку у attach по умолчанию включена передача сигналов. Основным процессом был Nginx, который обрабатывает SIGINT завершением работы. После завершения основного процесса остановился и контейнер. Команда docker ps -a показала контейнер в состоянии Exited. Контейнер не удалён, поэтому его можно снова запустить командой docker start custom-nginx-t2.
+
 <img width="2209" height="1606" alt="Снимок2" src="https://github.com/user-attachments/assets/7a9a54aa-8166-4aa6-bf9c-faca03159a3a" />
 
 <img width="1307" height="751" alt="Снимок3" src="https://github.com/user-attachments/assets/d52e2fbf-e4bf-427b-9fcd-54f648a74c4d" />
 
 <img width="2229" height="387" alt="Снимок4" src="https://github.com/user-attachments/assets/40e5f5af-7907-42f8-9f8a-adba817418b5" />
+
+После изменения конфигурации Nginx начал принимать запросы на порту 81 внутри контейнера. При этом настройки публикации Docker остались прежними: порт 8080 хостовой Ubuntu-ВМ перенаправляется на порт 80 контейнера. Поэтому контейнер продолжает работать и порт Docker остаётся опубликованным, но страница через http://127.0.0.1:8080 недоступна. Docker отправляет запросы на старый порт 80, а Nginx теперь слушает другой порт — 81. Для восстановления доступа нужно согласовать порт назначения Docker с портом приложения, то есть настроить перенаправление 8080 → 81.
 
 ## Задание 4
 <img width="1575" height="999" alt="Снимок5" src="https://github.com/user-attachments/assets/cbca8c43-76b0-4553-aea2-67dda411d42b" />
